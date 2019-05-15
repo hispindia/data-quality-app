@@ -101,9 +101,13 @@ class ValidationRulesAnalysis extends Page {
         const api = this.context.d2.Api.getApi();
 
         if (this.isFormValid()) {
+            const date = new Date(convertDateToApiDateFormat(this.state.startDate));
+            const datestart = new Date(date.setDate(date.getDate() + 1));
+            const dateend = new Date(convertDateToApiDateFormat(this.state.endDate));
+            const daterend = new Date(dateend.setDate(dateend.getDate() + 1));
             const request = {
-                startDate: convertDateToApiDateFormat(this.state.startDate),
-                endDate: convertDateToApiDateFormat(this.state.endDate),
+                startDate: convertDateToApiDateFormat(datestart),
+                endDate: convertDateToApiDateFormat(daterend),
                 ou: this.state.organisationUnitId,
                 notification: this.state.notification,
                 persist: this.state.persist,
