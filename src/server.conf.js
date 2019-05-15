@@ -12,7 +12,7 @@ export const apiConf = {
     },
     results: {
         analysis: {
-            limit: 10000,
+            limit: 50000,
         },
     },
 };
