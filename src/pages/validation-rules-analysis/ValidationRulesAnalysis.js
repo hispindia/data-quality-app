@@ -96,7 +96,7 @@ class ValidationRulesAnalysis extends Page {
         operator: e.operator,
         rightValue: e.rightSideValue,
     });
-
+    
     validate() {
         const api = this.context.d2.Api.getApi();
 
@@ -191,7 +191,20 @@ class ValidationRulesAnalysis extends Page {
     isActionDisabled() {
         return !this.isFormValid() || this.state.loading;
     }
-
+    
+    getValidationRuleList(){
+        const resourceName = "Validation Rules List";
+        const api = this.context.d2.Api.getApi();
+        api.get("documents?filter=name:like:"+resourceName+"&fields=id,name,url&paging=false").then((response) => {
+            if (!response || response.documents.length == 0){
+                return;
+            }
+            
+            window.open(response.documents[0].url,'_blank');
+        }) 
+          
+    }
+    
     render() {
         return (
             <div>
@@ -207,7 +220,8 @@ class ValidationRulesAnalysis extends Page {
                     {i18n.t(i18nKeys.validationRulesAnalysis.header)}
                     <PageHelper
                         sectionDocsKey={getDocsKeyForSection(this.props.sectionKey)}
-                    />
+                />     
+                <input type="button" value="Validation Rule List" onClick={this.getValidationRuleList.bind(this)}></input>
                 </h1>
                 <AlertBar show={this.showAlertBar()} />
                 <Card>
