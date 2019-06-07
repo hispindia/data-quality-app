@@ -207,3 +207,12 @@ msgstr "Avmarkerad"
 
 msgid "Unfollow done"
 msgstr "Sluta följa utförd"
+
+msgid "Outlier Analysis App"
+msgstr ""
+
+msgid "Open app"
+msgstr ""
+
+msgid "Open Outlier Analysis App"
+msgstr ""

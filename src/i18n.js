@@ -134,6 +134,12 @@ export const i18nKeys = {
         unmarked: 'Unmarked',
         unfollow: 'Unfollow done',
     },
+    outlierAnalysisApp: {
+        homeLabel: 'Outlier Analysis App',
+        homeAction: 'Open app',
+        header: 'Outlier Analysis App',
+        description: 'Open Outlier Analysis App',
+    },
 };
 
 export default i18nKeys;

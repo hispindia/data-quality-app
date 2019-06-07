@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-05-18T11:03:18.955Z\n"
-"PO-Revision-Date: 2019-05-18T11:03:18.955Z\n"
+"POT-Creation-Date: 2019-06-07T05:14:29.456Z\n"
+"PO-Revision-Date: 2019-06-07T05:14:29.456Z\n"
 
 msgid "Updating Organisation Units Tree..."
 msgstr ""
@@ -203,4 +203,13 @@ msgid "Unmarked"
 msgstr ""
 
 msgid "Unfollow done"
+msgstr ""
+
+msgid "Outlier Analysis App"
+msgstr ""
+
+msgid "Open app"
+msgstr ""
+
+msgid "Open Outlier Analysis App"
 msgstr ""

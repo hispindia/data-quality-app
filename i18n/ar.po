@@ -216,3 +216,12 @@ msgstr "تمت إزالة العلامة"
 
 msgid "Unfollow done"
 msgstr "تم إلغاء المتابعة"
+
+msgid "Outlier Analysis App"
+msgstr ""
+
+msgid "Open app"
+msgstr ""
+
+msgid "Open Outlier Analysis App"
+msgstr ""
