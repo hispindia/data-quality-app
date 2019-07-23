@@ -16,6 +16,12 @@ import ValidationRuleGroupsSelect, {
     ALL_VALIDATION_RULE_GROUPS_ID,
 } from
     '../../components/validation-rule-groups-select/ValidationRuleGroupsSelect';
+
+import OrganisationUnitGroupsSelect, {
+    ALL_ORGANISATION_UNIT_GROUPS_ID,
+} from
+    '../../components/organisation-unit-groups-select/OrganisationUnitGroupsSelect';
+
 import AvailableOrganisationUnitsTree from
     '../../components/available-organisation-units-tree/AvailableOrganisationUnitsTree';
 import PageHelper from '../../components/page-helper/PageHelper';
@@ -49,6 +55,7 @@ class ValidationRulesAnalysis extends Page {
             endDate: new Date(),
             organisationUnitId: null,
             validationRuleGroupId: ALL_VALIDATION_RULE_GROUPS_ID,
+            organisationUnitGroupId: ALL_ORGANISATION_UNIT_GROUPS_ID,
             notification: false,
             persist: false,
             elements: [],
@@ -62,6 +69,7 @@ class ValidationRulesAnalysis extends Page {
         this.endDateOnChange = this.endDateOnChange.bind(this);
         this.organisationUnitOnChange = this.organisationUnitOnChange.bind(this);
         this.validationRuleGroupOnChange = this.validationRuleGroupOnChange.bind(this);
+        this.organisationUnitGroupOnChange = this.organisationUnitGroupOnChange.bind(this);
         this.updateSendNotifications = this.updateSendNotifications.bind(this);
         this.updatePersistNewResults = this.updatePersistNewResults.bind(this);
     }
@@ -96,7 +104,7 @@ class ValidationRulesAnalysis extends Page {
         operator: e.operator,
         rightValue: e.rightSideValue,
     });
-    
+
     validate() {
         const api = this.context.d2.Api.getApi();
 
@@ -115,6 +123,10 @@ class ValidationRulesAnalysis extends Page {
 
             if (this.state.validationRuleGroupId !== ALL_VALIDATION_RULE_GROUPS_ID) {
                 request.vrg = this.state.validationRuleGroupId;
+            }
+
+            if (this.state.organisationUnitGroupId !== ALL_ORGANISATION_UNIT_GROUPS_ID) {
+                request.orgUnitGroup = this.state.organisationUnitGroupId;
             }
 
             this.context.updateAppState({
@@ -168,6 +180,10 @@ class ValidationRulesAnalysis extends Page {
         this.setState({ validationRuleGroupId: value });
     }
 
+    organisationUnitGroupOnChange(event, index, value) {
+        this.setState({ organisationUnitGroupId: value });
+    }
+
     updateSendNotifications(event, checked) {
         this.setState({ notification: checked });
     }
@@ -191,20 +207,19 @@ class ValidationRulesAnalysis extends Page {
     isActionDisabled() {
         return !this.isFormValid() || this.state.loading;
     }
-    
-    getValidationRuleList(){
-        const resourceName = "Validation Rules List";
+
+    getValidationRuleList() {
+        const resourceName = 'Validation Rules List';
         const api = this.context.d2.Api.getApi();
-        api.get("documents?filter=name:like:"+resourceName+"&fields=id,name,url&paging=false").then((response) => {
-            if (!response || response.documents.length == 0){
+        api.get(`documents?filter=name:like:${resourceName}&fields=id,name,url&paging=false`).then((response) => {
+            if (!response || response.documents.length === 0) {
                 return;
             }
-            
-            window.open(response.documents[0].url,'_blank');
-        }) 
-          
+
+            window.open(response.documents[0].url, '_blank');
+        });
     }
-    
+
     render() {
         return (
             <div>
@@ -220,8 +235,8 @@ class ValidationRulesAnalysis extends Page {
                     {i18n.t(i18nKeys.validationRulesAnalysis.header)}
                     <PageHelper
                         sectionDocsKey={getDocsKeyForSection(this.props.sectionKey)}
-                />     
-                <input type="button" value="Validation Rule List" onClick={this.getValidationRuleList.bind(this)}></input>
+                    />
+                    <input type="button" value="Validation Rule List" onClick={this.getValidationRuleList.bind(this)} />
                 </h1>
                 <AlertBar show={this.showAlertBar()} />
                 <Card>
@@ -261,6 +276,12 @@ class ValidationRulesAnalysis extends Page {
                                     <ValidationRuleGroupsSelect
                                         style={jsPageStyles.inputForm}
                                         onChange={this.validationRuleGroupOnChange}
+                                    />
+                                </div>
+                                <div id="organisation-unit-groups">
+                                    <OrganisationUnitGroupsSelect
+                                        style={jsPageStyles.inputForm}
+                                        onChange={this.organisationUnitGroupOnChange}
                                     />
                                 </div>
                                 <div id="send-notifications-option">

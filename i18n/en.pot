@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2019-06-10T10:23:19.821Z\n"
-"PO-Revision-Date: 2019-06-10T10:23:19.821Z\n"
+"POT-Creation-Date: 2019-07-23T10:25:54.209Z\n"
+"PO-Revision-Date: 2019-07-23T10:25:54.209Z\n"
 
 msgid "Updating Organisation Units Tree..."
 msgstr ""
@@ -176,6 +176,12 @@ msgid "no data available"
 msgstr ""
 
 msgid "[All Validation Rules]"
+msgstr ""
+
+msgid "Organisation Unit Group"
+msgstr ""
+
+msgid "[All Organisation Unit Group]"
 msgstr ""
 
 msgid "Performing request"

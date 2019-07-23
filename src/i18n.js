@@ -123,6 +123,10 @@ export const i18nKeys = {
         validationRuleGroupLabel: 'Validation Rule Group',
         allValidationRulesOption: '[All Validation Rules]',
     },
+    organisationUnitGroupsSelect: {
+        organisationUnitGroupsLabel: 'Organisation Unit Group',
+        allOrganisationUnitGroupsOption: '[All Organisation Unit Group]',
+    },
     messages: {
         performingRequest: 'Performing request',
         performingAnalysis: 'Performing analysis',
