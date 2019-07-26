@@ -10,6 +10,7 @@ import i18n from '../../locales';
 import { i18nKeys } from '../../i18n';
 
 export const ALL_VALIDATION_RULE_GROUPS_ID = -1;
+export const SELECTED_ORGUNIT_ID = 'v8EzhiynNtf';
 export const ALL_VALIDATION_RULE_GROUPS_OPTION = {
     id: ALL_VALIDATION_RULE_GROUPS_ID,
     displayName: i18nKeys.validationRuleGroupsSelect.allValidationRulesOption,

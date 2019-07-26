@@ -13,7 +13,7 @@ import { SUCCESS } from 'd2-ui/lib/feedback-snackbar/FeedbackSnackbarTypes';
 import Page from '../Page';
 import AlertBar from '../../components/alert-bar/AlertBar';
 import ValidationRuleGroupsSelect, {
-    ALL_VALIDATION_RULE_GROUPS_ID,
+    ALL_VALIDATION_RULE_GROUPS_ID, SELECTED_ORGUNIT_ID,
 } from
     '../../components/validation-rule-groups-select/ValidationRuleGroupsSelect';
 
@@ -39,6 +39,7 @@ import ValidationRulesAnalysisTable from './validation-rules-analysis-table/Vali
 import { apiConf } from '../../server.conf';
 import { convertDateToApiDateFormat } from '../../helpers/dates';
 
+// let selectedOrgUnitId;
 class ValidationRulesAnalysis extends Page {
     static STATE_PROPERTIES = [
         'loading',
@@ -48,7 +49,14 @@ class ValidationRulesAnalysis extends Page {
 
     constructor() {
         super();
-
+        /*
+        const api = this.context.d2.Api.getApi();
+        api.get('me?fields=id,name,organisationUnits[id,name]&paging=false').then((meResponse) => {
+            selectedOrgUnitId = meResponse.organisationUnits[0].id;
+            // const selectedOrgUnitName = meResponse.organisationUnits[0].id;
+            // this.organisationUnitOnChange(selectedOrgUnitId);
+        }).catch(() => { this.manageError(); });
+        */
         this.state = {
             showTable: false,
             startDate: new Date(),
@@ -83,6 +91,7 @@ class ValidationRulesAnalysis extends Page {
             }
         });
 
+        this.getSelectedOrgUnit();
         if (nextState !== {}) {
             this.setState(nextState);
         }
@@ -107,7 +116,6 @@ class ValidationRulesAnalysis extends Page {
 
     validate() {
         const api = this.context.d2.Api.getApi();
-
         if (this.isFormValid()) {
             const date = new Date(convertDateToApiDateFormat(this.state.startDate));
             const datestart = new Date(date.setDate(date.getDate() + 1));
@@ -220,6 +228,17 @@ class ValidationRulesAnalysis extends Page {
         });
     }
 
+
+    getSelectedOrgUnit() {
+        const api = this.context.d2.Api.getApi();
+        api.get('me?fields=id,name,organisationUnits[id,name]&paging=false').then((meResponse) => {
+            const selectedOrgUnitId = meResponse.organisationUnits[0].id;
+            const selectedOrgUnitName = meResponse.organisationUnits[0].name;
+            this.organisationUnitOnChange(selectedOrgUnitId);
+        }).catch(() => { this.manageError(); });
+    }
+
+
     render() {
         return (
             <div>
@@ -242,13 +261,13 @@ class ValidationRulesAnalysis extends Page {
                 <Card>
                     <CardText style={{ display: !this.state.showTable ? 'block' : 'none' }}>
                         <div className="row">
-                            <div className={classNames('col-md-6', cssPageStyles.section)}>
+                            <div className={classNames('col-md-6', cssPageStyles.section)} style={{ display: 'none' }}>
                                 <div className={cssPageStyles.formLabel}>
                                     {i18n.t(i18nKeys.validationRulesAnalysis.form.organisationUnit)}
                                 </div>
                                 <AvailableOrganisationUnitsTree onChange={this.organisationUnitOnChange} />
                             </div>
-                            <div className={classNames('col-md-6', cssPageStyles.section)}>
+                            <div className={classNames('col-md-12', cssPageStyles.section)}>
                                 <DatePicker
                                     id="start-date"
                                     textFieldStyle={jsPageStyles.inputForm}
@@ -284,7 +303,7 @@ class ValidationRulesAnalysis extends Page {
                                         onChange={this.organisationUnitGroupOnChange}
                                     />
                                 </div>
-                                <div id="send-notifications-option">
+                                <div id="send-notifications-option" style={{ display: 'none' }}>
                                     <Checkbox
                                         label={i18n.t(i18nKeys.validationRulesAnalysis.form.notification)}
                                         labelPosition="left"
@@ -292,7 +311,7 @@ class ValidationRulesAnalysis extends Page {
                                         onCheck={this.updateSendNotifications}
                                     />
                                 </div>
-                                <div id="persist-results-option">
+                                <div id="persist-results-option" style={{ display: 'none' }}>
                                     <Checkbox
                                         label={i18n.t(i18nKeys.validationRulesAnalysis.form.persist)}
                                         labelPosition="left"

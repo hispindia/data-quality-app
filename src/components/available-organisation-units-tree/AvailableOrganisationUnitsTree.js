@@ -36,6 +36,21 @@ class AvailableOrganisationUnitsTree extends PureComponent {
   componentDidMount() {
       const d2 = this.context.d2;
       if (this.state.rootWithMember == null) {
+          /*
+          // const api = this.context.d2.Api.getApi();
+          // api.get('me?fields=id,name,organisationUnits[id,name]&paging=false').then((meResponse) => {
+          // const userOrgUnit = meResponse.organisationUnits[0].id;
+
+          const orgUnitApi = 'organisationUnits/N5WWbRtsjWp/?fields=id,displayName,path,children::isNotEmpty,memberCount&paging=false';
+          api.get(orgUnitApi).then((orgResponse) => {
+              const organisationUnits = orgResponse.organisationUnit;
+              this.setState({
+                  rootWithMembers: organisationUnits[0],
+              });
+          }).catch(() => { this.manageError(); });
+
+          // }).catch(() => { this.manageError(); });
+          */
           d2.models.organisationUnits.list({
               paging: false,
               level: 1,
