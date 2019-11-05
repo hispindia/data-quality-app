@@ -68,6 +68,7 @@ class ValidationRulesAnalysis extends Page {
             persist: false,
             elements: [],
             loading: false,
+            accessOrgUnitTree:  false,
         };
 
         this.validate = this.validate.bind(this);
@@ -231,15 +232,22 @@ class ValidationRulesAnalysis extends Page {
 
     getSelectedOrgUnit() {
         const api = this.context.d2.Api.getApi();
-        api.get('me?fields=id,name,organisationUnits[id,name]&paging=false').then((meResponse) => {
+        //id,displayName,userCredentials[username,userRoles[id,displayName,programs,authorities]]
+        api.get('me?fields=id,displayName,userCredentials[username,userRoles[id,displayName,programs,authorities]],organisationUnits[id,displayName]&paging=false').then((meResponse) => {
             const selectedOrgUnitId = meResponse.organisationUnits[0].id;
-            const selectedOrgUnitName = meResponse.organisationUnits[0].name;
-            this.organisationUnitOnChange(selectedOrgUnitId);
+            const selectedOrgUnitName = meResponse.organisationUnits[0].displayName;
+            //this.organisationUnitOnChange(selectedOrgUnitId);
+            if( selectedOrgUnitName === 'Uttar Pradesh' && selectedOrgUnitId ==='v8EzhiynNtf'){
+                this.setState({accessOrgUnitTree: true});
+            }
+            else{
+                this.organisationUnitOnChange(selectedOrgUnitId);
+            }
         }).catch(() => { this.manageError(); });
     }
 
-
     render() {
+        const accessOrgUnitTree = this.state.accessOrgUnitTree;
         return (
             <div>
                 <h1 className={cssPageStyles.pageHeader}>
@@ -261,13 +269,13 @@ class ValidationRulesAnalysis extends Page {
                 <Card>
                     <CardText style={{ display: !this.state.showTable ? 'block' : 'none' }}>
                         <div className="row">
-                            <div className={classNames('col-md-6', cssPageStyles.section)} style={{ display: 'none' }}>
+                            <div className={classNames(accessOrgUnitTree ? 'col-md-6' : 'col-md-12', cssPageStyles.section)} style={{ display: accessOrgUnitTree ? 'block' : 'none' }}>
                                 <div className={cssPageStyles.formLabel}>
                                     {i18n.t(i18nKeys.validationRulesAnalysis.form.organisationUnit)}
                                 </div>
                                 <AvailableOrganisationUnitsTree onChange={this.organisationUnitOnChange} />
                             </div>
-                            <div className={classNames('col-md-12', cssPageStyles.section)}>
+                            <div className={classNames(accessOrgUnitTree ? 'col-md-6' : 'col-md-12', cssPageStyles.section)}>
                                 <DatePicker
                                     id="start-date"
                                     textFieldStyle={jsPageStyles.inputForm}
