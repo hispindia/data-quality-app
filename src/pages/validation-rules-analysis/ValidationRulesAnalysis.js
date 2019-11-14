@@ -228,8 +228,7 @@ class ValidationRulesAnalysis extends Page {
             window.open(response.documents[0].url, '_blank');
         });
     }
-
-
+    
     getSelectedOrgUnit() {
         const api = this.context.d2.Api.getApi();
         //id,displayName,userCredentials[username,userRoles[id,displayName,programs,authorities]]
