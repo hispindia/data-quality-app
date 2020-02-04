@@ -45,7 +45,8 @@ class OrganisationUnitGroupsSelect extends PureComponent {
         const api = this.context.d2.Api.getApi();
         const translatedAllOrganisationUnitGroupsOption = ALL_ORGANISATION_UNIT_GROUPS_OPTION;
         translatedAllOrganisationUnitGroupsOption.displayName = i18n.t(ALL_ORGANISATION_UNIT_GROUPS_OPTION.displayName);
-        api.get('organisationUnitGroups?fields=id,displayName&paging=false').then((organisationUnitGroupsResponse) => {
+        //@Sou groups fixed to chc,phc,sc,dh
+        api.get('organisationUnitGroups?filter=id:in:[gBerHA2rUH0,UBuxUMmdz1U,nIVbiyAyRrb,JRLIvJzK4H0]&fields=id,displayName').then((organisationUnitGroupsResponse) => {
             this.setState({
                 organisationUnitGroups: [translatedAllOrganisationUnitGroupsOption, ...organisationUnitGroupsResponse.organisationUnitGroups],
             });
