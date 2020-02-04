@@ -119,12 +119,13 @@ class ValidationRulesAnalysis extends Page {
         const api = this.context.d2.Api.getApi();
         if (this.isFormValid()) {
             const date = new Date(convertDateToApiDateFormat(this.state.startDate));
-            const datestart = new Date(date.setDate(date.getDate() + 1));
+            const datestart = new Date(date.setDate(1));
             const dateend = new Date(convertDateToApiDateFormat(this.state.endDate));
-            const daterend = new Date(dateend.setDate(dateend.getDate() + 1));
+            //@Sou fix last day of selected month
+            const lastDayOfMonth = new Date(dateend.getFullYear(), dateend.getMonth()+1, 1);
             const request = {
                 startDate: convertDateToApiDateFormat(datestart),
-                endDate: convertDateToApiDateFormat(daterend),
+                endDate: convertDateToApiDateFormat(lastDayOfMonth),
                 ou: this.state.organisationUnitId,
                 notification: this.state.notification,
                 persist: this.state.persist,
@@ -232,11 +233,16 @@ class ValidationRulesAnalysis extends Page {
     getSelectedOrgUnit() {
         const api = this.context.d2.Api.getApi();
         //id,displayName,userCredentials[username,userRoles[id,displayName,programs,authorities]]
-        api.get('me?fields=id,displayName,userCredentials[username,userRoles[id,displayName,programs,authorities]],organisationUnits[id,displayName]&paging=false').then((meResponse) => {
+        api.get('me?fields=id,displayName,userCredentials[username,userRoles[id,displayName,programs,authorities]],organisationUnits[id,displayName,level]&paging=false').then((meResponse) => {
             const selectedOrgUnitId = meResponse.organisationUnits[0].id;
-            const selectedOrgUnitName = meResponse.organisationUnits[0].displayName;
+            // const selectedOrgUnitName = meResponse.organisationUnits[0].displayName;
+            //@Sou enable tree for level=2,3
+            const selectedOrgLevel = meResponse.organisationUnits[0].level;
             //this.organisationUnitOnChange(selectedOrgUnitId);
-            if( selectedOrgUnitName === 'Uttar Pradesh' && selectedOrgUnitId ==='v8EzhiynNtf'){
+            // if( selectedOrgUnitName === 'Uttar Pradesh' && selectedOrgUnitId ==='v8EzhiynNtf'){
+            //     this.setState({accessOrgUnitTree: true});
+            // }
+            if( selectedOrgLevel=='2' || selectedOrgLevel=='3'){
                 this.setState({accessOrgUnitTree: true});
             }
             else{
