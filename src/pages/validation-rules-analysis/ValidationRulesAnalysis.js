@@ -118,8 +118,7 @@ class ValidationRulesAnalysis extends Page {
     validate() {
         const api = this.context.d2.Api.getApi();
         if (this.isFormValid()) {
-            const date = new Date(convertDateToApiDateFormat(this.state.startDate));
-            const firstDay = new Date(date.getFullYear(), date.getMonth(), 2);
+            const firstDay = new Date(this.state.startDate.getFullYear(), this.state.startDate.getMonth(),2);
             const dateend = new Date(convertDateToApiDateFormat(this.state.endDate));
             //@Sou fix last day of selected month
             const lastDayOfMonth = new Date(dateend.getFullYear(), dateend.getMonth()+1, 1);
