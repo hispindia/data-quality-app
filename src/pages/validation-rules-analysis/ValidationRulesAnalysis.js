@@ -186,6 +186,28 @@ class ValidationRulesAnalysis extends Page {
     }
 
     validationRuleGroupOnChange(event, index, value) {
+        //@Sou fix orggroup based upon validation selection
+        if (value=='MIJs1ZGgH5Y')
+        {
+            this.setState({ organisationUnitGroupId: 'gBerHA2rUH0' });
+        }
+        else if (value=='Igz5s6k6ESZ')
+        {
+            this.setState({ organisationUnitGroupId: 'UBuxUMmdz1U' });
+        }
+        else if (value=='UXjTH8Uw3Ca')
+        {
+            this.setState({ organisationUnitGroupId: 'nIVbiyAyRrb' });
+        }
+        else if (value=='t6jn5LLxzDz')
+        {
+            this.setState({ organisationUnitGroupId: 'JRLIvJzK4H0' });
+        }
+        else
+        {
+            this.setState({ organisationUnitGroupId: ALL_ORGANISATION_UNIT_GROUPS_ID });
+        }
+
         this.setState({ validationRuleGroupId: value });
     }
 
@@ -309,12 +331,13 @@ class ValidationRulesAnalysis extends Page {
                                         onChange={this.validationRuleGroupOnChange}
                                     />
                                 </div>
-                                <div id="organisation-unit-groups">
-                                    <OrganisationUnitGroupsSelect
-                                        style={jsPageStyles.inputForm}
-                                        onChange={this.organisationUnitGroupOnChange}
-                                    />
-                                </div>
+                                /*@Sou hide orgunit div*/
+                                {/*<div id="organisation-unit-groups">*/}
+                                    {/*<OrganisationUnitGroupsSelect*/}
+                                        {/*style={jsPageStyles.inputForm}*/}
+                                        {/*onChange={this.organisationUnitGroupOnChange}*/}
+                                    {/*/>*/}
+                                {/*</div>*/}
                                 <div id="send-notifications-option" style={{ display: 'none' }}>
                                     <Checkbox
                                         label={i18n.t(i18nKeys.validationRulesAnalysis.form.notification)}
