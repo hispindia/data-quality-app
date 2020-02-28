@@ -331,7 +331,7 @@ class ValidationRulesAnalysis extends Page {
                                         onChange={this.validationRuleGroupOnChange}
                                     />
                                 </div>
-                                /*@Sou hide orgunit div*/
+                                
                                 {/*<div id="organisation-unit-groups">*/}
                                     {/*<OrganisationUnitGroupsSelect*/}
                                         {/*style={jsPageStyles.inputForm}*/}
