@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 /* i18n */
 import i18n from '../../locales';
 import { i18nKeys } from '../../i18n';
-import ClearCache from "react-clear-cache";
-import { useClearCache } from "react-clear-cache";
 import styles from './DownloadAs.css';
 
 class DownloadAs extends PureComponent {
