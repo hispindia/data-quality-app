@@ -20,12 +20,14 @@ import { apiConf } from '../../../server.conf';
 
 class ValidationRulesAnalysisTable extends PureComponent {
     static propTypes = {
+
         elements: PropTypes.array.isRequired,
     }
 
     render() {
         const elements = this.props.elements;
-
+        let timestamp =Date.now();
+        console.log("vali-------",timestamp);
         // Table Rows
         const rows = elements.map(element => (
             <TableRow key={element.key}>
@@ -55,7 +57,7 @@ class ValidationRulesAnalysisTable extends PureComponent {
         return (
             <div>
                 <div className={cssPageStyles.cardHeader}>
-                    <DownloadAs endpoint={apiConf.endpoints.validationRulesReport} />
+                    <DownloadAs endpoint={`${apiConf.endpoints.validationRulesReport}.csv?t=${timestamp}`} />
                 </div>
                 <Table
                     selectable={false}
@@ -98,7 +100,7 @@ class ValidationRulesAnalysisTable extends PureComponent {
                     </TableBody>
                 </Table>
                 <div className={classNames(cssPageStyles.cardFooter, cssPageStyles.end)}>
-                    <DownloadAs endpoint={apiConf.endpoints.validationRulesReport} />
+                    <DownloadAs endpoint={`${apiConf.endpoints.validationRulesReport}.csv?t=${timestamp}`} />
                 </div>
             </div>
         );
